@@ -445,6 +445,11 @@ body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);l
   transition:transform 0.25s;
 }
 .transport-card:hover{transform:translateY(-4px);}
+.transport-photo{
+  grid-column:1/-1;height:125px;border-radius:12px;
+  background-size:cover;background-position:center;
+  margin-bottom:4px;
+}
 .transport-icon{
   width:56px;height:56px;border-radius:14px;
   background:var(--green-bg);
@@ -623,6 +628,15 @@ body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);l
 .confirm-box h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--green);margin-bottom:8px;}
 .confirm-box p{color:var(--muted);font-size:14px;}
 
+/* ─── FAQ ────────────────────────────────── */
+.faq-list{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:12px;}
+.faq-item{background:white;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+.faq-item summary{list-style:none;cursor:pointer;padding:18px 20px;font-weight:600;color:var(--green);display:flex;justify-content:space-between;align-items:center;gap:16px;}
+.faq-item summary::-webkit-details-marker{display:none;}
+.faq-item summary::after{content:'+';font-size:20px;color:var(--green-mid);font-weight:400;}
+.faq-item[open] summary::after{content:'-';}
+.faq-answer{padding:0 20px 18px;font-size:13.5px;color:var(--muted);line-height:1.7;}
+
 /* ─── FOOTER ─────────────────────────────── */
 .site-footer{background:var(--green);color:white;padding:4rem 0 0;}
 .footer-inner{
@@ -760,8 +774,9 @@ body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);l
     <button class="nav-link active" onclick="showPage('home')">Home</button>
     <button class="nav-link" onclick="showPage('attractions')">Attractions</button>
     <button class="nav-link" onclick="showPage('stay')">Stay</button>
-    <button class="nav-link" onclick="showPage('dining')">Dine</button>
+    <button class="nav-link" onclick="showPage('dining')">Dining</button>
     <button class="nav-link" onclick="showPage('transport')">Transportation</button>
+    <button class="nav-link" onclick="showPage('faq')">FAQ</button>
     <button class="nav-link plan-btn" onclick="showPage('plan')">Plan Your Trip</button>
   </div>
 </nav>
@@ -771,8 +786,9 @@ body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);l
   <button class="nav-link" onclick="showPage('home')">Home</button>
   <button class="nav-link" onclick="showPage('attractions')">Attractions</button>
   <button class="nav-link" onclick="showPage('stay')">Stay</button>
-  <button class="nav-link" onclick="showPage('dining')">Dine</button>
+  <button class="nav-link" onclick="showPage('dining')">Dining</button>
   <button class="nav-link" onclick="showPage('transport')">Transportation</button>
+  <button class="nav-link" onclick="showPage('faq')">FAQ</button>
   <button class="nav-link" onclick="showPage('plan')">Plan Your Trip</button>
 </div>
 
@@ -1217,6 +1233,25 @@ body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);l
         </div>
       </div>
 
+      <div class="stay-card" data-type="hotel" data-price="100to200" data-amenity="beach breakfast">
+        <div class="stay-img" style="background-image:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80')">
+          <div class="stay-price-tag">From $175/night</div>
+        </div>
+        <div class="stay-body">
+          <div class="stay-title">Yellow Leaf Bay Inn <span class="badge badge-fave">Task 5 Match</span></div>
+          <div class="stay-desc">Comfortable family hotel with direct beach access at Yellow Leaf Bay and a daily breakfast included. A practical mid-range choice for longer stays.</div>
+          <div class="stay-amenities">
+            <span class="amenity">Beach Access</span>
+            <span class="amenity">Breakfast Included</span>
+            <span class="amenity">WiFi</span>
+          </div>
+          <div class="stay-actions">
+            <button class="btn-sm btn-green" onclick="openModal('Yellow Leaf Bay Inn','From $175/night',175)">Check Availability</button>
+            <button class="btn-sm btn-outline" onclick="openInfoModal('Yellow Leaf Bay Inn','Direct beach access, breakfast included, WiFi, and a nightly rate under $200 make this property a match for the Task 5 criteria.')">Details</button>
+          </div>
+        </div>
+      </div>
+
       <div class="stay-card" data-type="hostel" data-price="under100" data-amenity="">
         <div class="stay-img" style="background-image:url('https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=80')">
           <div class="stay-price-tag">From $35/night</div>
@@ -1425,6 +1460,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);l
     <div class="cards-grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
 
       <div class="transport-card">
+        <div class="transport-photo" style="background-image:url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=900&q=80')"></div>
         <div class="transport-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
         <div>
           <div class="transport-title">Car Rentals</div>
@@ -1435,32 +1471,35 @@ body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);l
       </div>
 
       <div class="transport-card">
+        <div class="transport-photo" style="background-image:url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=900&q=80')"></div>
         <div class="transport-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
         <div>
           <div class="transport-title">Public & Private Buses</div>
           <div class="transport-desc">Public buses serve Taniti City from 5 AM–11 PM daily. Private buses serve the rest of the island beyond the city limits — ideal for reaching rainforest trailheads or volcano viewpoints.</div>
           <div class="transport-price">$2 per ride · $15 weekly pass</div>
-          <button class="btn-sm btn-outline">View Routes</button>
+          <button class="btn-sm btn-outline" onclick="openInfoModal('Bus Routes and Hours','Public buses serve Taniti City from 5 AM to 11 PM daily. Private buses serve destinations beyond the city, including rainforest trailheads and volcano viewpoints. Standard public fare is $2 per ride.')">View Routes</button>
         </div>
       </div>
 
       <div class="transport-card">
+        <div class="transport-photo" style="background-image:url('https://images.unsplash.com/photo-1515569067071-ec3b51335dd0?auto=format&fit=crop&w=900&q=80')"></div>
         <div class="transport-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.91a16 16 0 006.16 6.16l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
         <div>
           <div class="transport-title">Taxis (Taniti City)</div>
           <div class="transport-desc">Taxis are available within Taniti City. Professional drivers with fixed rates to popular destinations and the airport. Not available island-wide — use private buses or a rental car for areas outside the city.</div>
           <div class="transport-price">Base $5 · $2/mile · Airport: $25</div>
-          <button class="btn-sm btn-outline">Call a Taxi</button>
+          <button class="btn-sm btn-outline" onclick="openInfoModal('Taxi Service','Taxis operate within Taniti City and charge fixed or metered fares. The airport fare is about $25. For destinations outside Taniti City, use a private bus or rental car.')">Call a Taxi</button>
         </div>
       </div>
 
       <div class="transport-card">
+        <div class="transport-photo" style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80')"></div>
         <div class="transport-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 14 14"/></svg></div>
         <div>
           <div class="transport-title">Walking & Biking</div>
           <div class="transport-desc">Taniti City is flat and very walkable. The Merriton Landing area is also easy to explore entirely on foot. Bikes and helmets available from several vendors island-wide (helmets required by law).</div>
           <div class="transport-price">Bike rental: $15/day · Helmets included</div>
-          <button class="btn-sm btn-outline">Rental Locations</button>
+          <button class="btn-sm btn-outline" onclick="openInfoModal('Bike Rental Locations','Bikes and helmets are available from several vendors in Taniti City and Merriton Landing. Bike rental is about $15 per day, and helmets are required by law.')">Rental Locations</button>
         </div>
       </div>
 
@@ -1492,13 +1531,27 @@ body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);l
     </div>
 
     <div class="itinerary-tabs">
-      <button class="itin-tab active" onclick="switchItin(0)">3-Day Trip</button>
-      <button class="itin-tab" onclick="switchItin(1)">5-Day Trip</button>
-      <button class="itin-tab" onclick="switchItin(2)">7-Day Trip</button>
+      <button class="itin-tab active" onclick="switchItin(0)">1-Day Trip</button>
+      <button class="itin-tab" onclick="switchItin(1)">3-Day Trip</button>
+      <button class="itin-tab" onclick="switchItin(2)">5-Day Trip</button>
+      <button class="itin-tab" onclick="switchItin(3)">7-Day Trip</button>
+    </div>
+
+    <!-- 1-day -->
+    <div class="itin-content active" id="itin0">
+      <div class="itin-day">
+        <div class="itin-day-header"><div class="itin-day-num">1</div><div class="itin-day-title">Taniti Highlights - Volcano, Culture, and Local Dining</div></div>
+        <div class="itin-day-body">
+          <div class="itin-activity"><div class="itin-time">8:00 AM</div><div><div class="itin-act-title">Volcano Tour (Outdoor Activity) - Island-wide - $85/person</div><div class="itin-act-desc">Take a guided volcano tour with hotel pickup, expert guides, and safe viewing platforms. About 4 hours.</div></div></div>
+          <div class="itin-activity"><div class="itin-time">1:00 PM</div><div><div class="itin-act-title">Lunch at Taniti City Market Cafe - Merriton Landing</div><div class="itin-act-desc">Try local dishes and tropical fruit in an open-air setting near Merriton Landing.</div></div></div>
+          <div class="itin-activity"><div class="itin-time">3:00 PM</div><div><div class="itin-act-title">History Museum (Cultural Attraction) - Taniti City - $15/person</div><div class="itin-act-desc">Explore Tanitian history and culture through interactive exhibits. The museum is open until 5 PM.</div></div></div>
+          <div class="itin-activity"><div class="itin-time">7:00 PM</div><div><div class="itin-act-title">Dinner at East Breeze Asian Bistro - Taniti City</div><div class="itin-act-desc">Finish the day with Pan-Asian cuisine in Taniti City. Vegetarian options are available.</div></div></div>
+        </div>
+      </div>
     </div>
 
     <!-- 3-day -->
-    <div class="itin-content active" id="itin0">
+    <div class="itin-content" id="itin1">
       <div class="itin-day">
         <div class="itin-day-header"><div class="itin-day-num">1</div><div class="itin-day-title">Arrival & Beach Day — Taniti City & Yellow Leaf Bay</div></div>
         <div class="itin-day-body">
@@ -1529,7 +1582,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);l
     </div>
 
     <!-- 5-day -->
-    <div class="itin-content" id="itin1">
+    <div class="itin-content" id="itin2">
       <div class="itin-day"><div class="itin-day-header"><div class="itin-day-num">1</div><div class="itin-day-title">Arrival & Beach Exploration</div></div><div class="itin-day-body"><div class="itin-activity"><div class="itin-time">Morning</div><div><div class="itin-act-title">Arrive, check in, explore Taniti City</div><div class="itin-act-desc">Native architecture and white sandy beaches at Yellow Leaf Bay.</div></div></div><div class="itin-activity"><div class="itin-time">Afternoon</div><div><div class="itin-act-title">Yellow Leaf Bay beach & snorkeling</div><div class="itin-act-desc">Pristine waters perfect for beginners.</div></div></div></div></div>
       <div class="itin-day"><div class="itin-day-header"><div class="itin-day-num">2</div><div class="itin-day-title">Volcano Tour & History Museum</div></div><div class="itin-day-body"><div class="itin-activity"><div class="itin-time">Morning</div><div><div class="itin-act-title">🌋 Guided Volcano Tour — $85/person</div><div class="itin-act-desc">Hotel pickup at 8 AM. One of Taniti's most iconic experiences.</div></div></div><div class="itin-activity"><div class="itin-time">Afternoon</div><div><div class="itin-act-title">🏛 History Museum — $15/person</div><div class="itin-act-desc">Discover centuries of Tanitian culture and artifacts.</div></div></div></div></div>
       <div class="itin-day"><div class="itin-day-header"><div class="itin-day-num">3</div><div class="itin-day-title">Rainforest & Merriton Landing</div></div><div class="itin-day-body"><div class="itin-activity"><div class="itin-time">Morning</div><div><div class="itin-act-title">🌿 Zip-Lining in the Rainforest — $65/person</div><div class="itin-act-desc">Soar through the canopy at Merriton Landing.</div></div></div><div class="itin-activity"><div class="itin-time">Afternoon</div><div><div class="itin-act-title">Explore Merriton Landing on foot</div><div class="itin-act-desc">Art galleries, shops, microbrewery and the new dance club.</div></div></div></div></div>
@@ -1538,7 +1591,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);l
     </div>
 
     <!-- 7-day -->
-    <div class="itin-content" id="itin2">
+    <div class="itin-content" id="itin3">
       <div class="itin-day"><div class="itin-day-header"><div class="itin-day-num">1–2</div><div class="itin-day-title">Arrival, Beach & City Exploration</div></div><div class="itin-day-body"><div class="itin-activity"><div class="itin-time">Days 1–2</div><div><div class="itin-act-title">Settle in, explore Taniti City & Yellow Leaf Bay beaches</div><div class="itin-act-desc">Native architecture, white sandy beaches, and first meals at local restaurants.</div></div></div></div></div>
       <div class="itin-day"><div class="itin-day-header"><div class="itin-day-num">3–4</div><div class="itin-day-title">Adventure Days — Volcano, Zip-Line & Fishing</div></div><div class="itin-day-body"><div class="itin-activity"><div class="itin-time">Day 3</div><div><div class="itin-act-title">🌋 Volcano Tour + 🏛 History Museum</div><div class="itin-act-desc">Full adventure and cultural day.</div></div></div><div class="itin-activity"><div class="itin-time">Day 4</div><div><div class="itin-act-title">🌿 Zip-Lining + ⛵ Chartered Fishing</div><div class="itin-act-desc">Two of Taniti's most exciting activities.</div></div></div></div></div>
       <div class="itin-day"><div class="itin-day-header"><div class="itin-day-num">5–6</div><div class="itin-day-title">Water Sports & Merriton Landing</div></div><div class="itin-day-body"><div class="itin-activity"><div class="itin-time">Day 5</div><div><div class="itin-act-title">🤿 Snorkeling + helicopter ride</div><div class="itin-act-desc">Marine life tours and aerial island views.</div></div></div><div class="itin-activity"><div class="itin-time">Day 6</div><div><div class="itin-act-title">Merriton Landing full day</div><div class="itin-act-desc">Galleries, shopping, microbrewery, live music, golf (opening soon).</div></div></div></div></div>
@@ -1588,6 +1641,35 @@ body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);l
   </div>
 </div><!-- /plan -->
 
+<!-- FAQ PAGE -->
+<div id="faq" class="page">
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="breadcrumb">Home <span>&gt;</span> FAQ</div>
+      <h1>Frequently Asked Questions</h1>
+      <p>Quick answers about transportation, lodging, money, safety, and island rules</p>
+    </div>
+  </div>
+  <div class="container section" style="padding-top:2.5rem;">
+    <div class="section-header">
+      <span class="eyebrow">Visitor Help</span>
+      <h2>Plan With Confidence</h2>
+      <p>These answers cover the practical questions visitors ask most often.</p>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item"><summary>How do I get from the airport to my hotel?</summary><div class="faq-answer">Most hotels offer a free shuttle if arranged when booking. Taxis cost about $25 to Taniti City or Merriton Landing, and rental cars start around $45 per day.</div></details>
+      <details class="faq-item"><summary>Do taxis travel everywhere on the island?</summary><div class="faq-answer">No. Taxis operate within Taniti City. For destinations outside the city, use a private bus, rental car, bike, or a guided tour depending on the distance.</div></details>
+      <details class="faq-item"><summary>What currency should I bring?</summary><div class="faq-answer">The US dollar is the main currency. Euros and Yen are accepted at many businesses, major credit cards are widely accepted, and several banks provide currency exchange.</div></details>
+      <details class="faq-item"><summary>Is lodging inspected?</summary><div class="faq-answer">Yes. All lodging on Taniti, from hostels to the four-star resort, is regulated and regularly inspected by the Tanitian government.</div></details>
+      <details class="faq-item"><summary>What language is spoken?</summary><div class="faq-answer">Many younger Tanitians speak fluent English. English is less common in rural areas, especially among older residents. The hospital has many multilingual employees.</div></details>
+      <details class="faq-item"><summary>Are there alcohol restrictions?</summary><div class="faq-answer">The drinking age is 18. Alcohol cannot be sold between midnight and 9:00 AM.</div></details>
+      <details class="faq-item"><summary>Do attractions close on holidays?</summary><div class="faq-answer">Some tourist attractions and restaurants may close on national holidays. Check local schedules before booking activities on a holiday.</div></details>
+      <details class="faq-item"><summary>Where can I buy groceries and essentials?</summary><div class="faq-answer">Taniti has two supermarkets, two smaller grocery stores, and one convenience store that is open 24 hours a day.</div></details>
+      <details class="faq-item"><summary>What happens after I submit a booking?</summary><div class="faq-answer">The prototype confirms the request on screen and provides a booking reference. A confirmation email with the payment link and full booking details is then sent to the email address entered in the form.</div></details>
+    </div>
+  </div>
+</div><!-- /faq -->
+
 <!-- ══ FOOTER ═══════════════════════════════════════════════ -->
 <footer class="site-footer">
   <div class="footer-inner">
@@ -1607,6 +1689,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);l
         <li onclick="showPage('stay')">Accommodations</li>
         <li onclick="showPage('dining')">Dining</li>
         <li onclick="showPage('transport')">Transportation</li>
+        <li onclick="showPage('faq')">FAQ</li>
         <li onclick="showPage('plan')">Plan Your Trip</li>
       </ul>
     </div>
@@ -1650,7 +1733,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);l
       <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Stay
     </button>
     <button class="mobile-bar-btn" onclick="showPage('dining')">
-      <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg>Eat
+      <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg>Dining
     </button>
     <button class="mobile-bar-btn" onclick="showPage('plan')">
       <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Plan
@@ -1686,9 +1769,9 @@ function showPage(id){
 
   // Reset stay filters on page visit
   if(id==='stay'){
-    _stayFilters={type:'all',price:'all',amenity:''};
+    _stayFilters={type:'all',price:'all',amenities:[]};
     document.querySelectorAll('#stayCards .stay-card').forEach(function(c){c.style.display='block';});
-    document.querySelectorAll('#stayTypeFilters .filter-tag, .stay .filter-tag-row .filter-tag').forEach(function(b){
+    document.querySelectorAll('#stayTypeFilters .filter-tag, #stay .filter-tag-row .filter-tag').forEach(function(b){
       b.classList.remove('active');
     });
     var allBtns=document.querySelectorAll('#stay .filter-tag[onclick*="\'all\'"]');
@@ -1697,7 +1780,7 @@ function showPage(id){
   }
   // Reset dining filters on page visit
   if(id==='dining'){
-    _diningFilters={cat:'all',good:''};
+    _diningFilters={cat:'all',good:[]};
     document.querySelectorAll('#diningCards .dining-card').forEach(function(c){c.style.display='block';});
     var allBtn=document.querySelector('#diningCatFilters .filter-tag');
     document.querySelectorAll('#dining .filter-tag').forEach(function(b){b.classList.remove('active');});
@@ -1727,22 +1810,21 @@ function filterLoc(btn,loc){
 }
 
 // ─── Stay Filters ─────────────────────────────────────
-var _stayFilters={type:'all',price:'all',amenity:''};
+var _stayFilters={type:'all',price:'all',amenities:[]};
 function filterStay(btn, dimension, value){
-  // Only clear active within the same row/group as the clicked button
   var container = btn.closest('.filter-tags') || btn.closest('.filter-tag-row');
-  if(container) container.querySelectorAll('.filter-tag').forEach(function(b){b.classList.remove('active');});
 
-  // Toggle off if already active (for amenity toggles)
   if(dimension==='amenity'){
-    if(_stayFilters.amenity===value){
-      _stayFilters.amenity='';
-      // don't mark active — deselected
+    var idx=_stayFilters.amenities.indexOf(value);
+    if(idx>-1){
+      _stayFilters.amenities.splice(idx,1);
+      btn.classList.remove('active');
     } else {
-      _stayFilters.amenity=value;
+      _stayFilters.amenities.push(value);
       btn.classList.add('active');
     }
   } else {
+    if(container) container.querySelectorAll('.filter-tag').forEach(function(b){b.classList.remove('active');});
     btn.classList.add('active');
     if(dimension==='type')  _stayFilters.type  = value;
     if(dimension==='price') _stayFilters.price = value;
@@ -1751,7 +1833,8 @@ function filterStay(btn, dimension, value){
   document.querySelectorAll('#stayCards .stay-card').forEach(function(card){
     var typeOk  = _stayFilters.type==='all'  || card.dataset.type===_stayFilters.type;
     var priceOk = _stayFilters.price==='all' || card.dataset.price===_stayFilters.price;
-    var amenOk  = _stayFilters.amenity===''  || (card.dataset.amenity||'').indexOf(_stayFilters.amenity)>-1;
+    var cardAmenities=(card.dataset.amenity||'').split(/\s+/).filter(Boolean);
+    var amenOk  = _stayFilters.amenities.every(function(a){return cardAmenities.indexOf(a)>-1;});
     card.style.display = (typeOk && priceOk && amenOk) ? 'block' : 'none';
   });
 
@@ -1772,27 +1855,29 @@ function filterStay(btn, dimension, value){
 }
 
 // ─── Dining Filters ───────────────────────────────────
-var _diningFilters={cat:'all',good:''};
+var _diningFilters={cat:'all',good:[]};
 function filterDining(btn, dimension, value){
   var container = btn.closest('.filter-tags') || btn.closest('.filter-tag-row');
-  if(container) container.querySelectorAll('.filter-tag').forEach(function(b){b.classList.remove('active');});
 
-  // Toggle off "good for" filters if already active
   if(dimension==='good'){
-    if(_diningFilters.good===value){
-      _diningFilters.good='';
+    var idx=_diningFilters.good.indexOf(value);
+    if(idx>-1){
+      _diningFilters.good.splice(idx,1);
+      btn.classList.remove('active');
     } else {
-      _diningFilters.good=value;
+      _diningFilters.good.push(value);
       btn.classList.add('active');
     }
   } else {
+    if(container) container.querySelectorAll('.filter-tag').forEach(function(b){b.classList.remove('active');});
     btn.classList.add('active');
     if(dimension==='cat') _diningFilters.cat = value;
   }
 
   document.querySelectorAll('#diningCards .dining-card').forEach(function(card){
     var catOk  = _diningFilters.cat==='all' || card.dataset.cat===_diningFilters.cat;
-    var goodOk = _diningFilters.good===''   || (card.dataset.good||'').indexOf(_diningFilters.good)>-1;
+    var cardGood=(card.dataset.good||'').split(/\s+/).filter(Boolean);
+    var goodOk = _diningFilters.good.every(function(g){return cardGood.indexOf(g)>-1;});
     card.style.display = (catOk && goodOk) ? 'block' : 'none';
   });
 
@@ -1832,15 +1917,20 @@ function stepsHtml(active){
 }
 
 function openModal(name, priceLabel, priceNum){
-  _bookingData = {name:name, priceLabel:priceLabel, priceNum:priceNum||0};
-  document.getElementById('modalTitle').textContent='Book: '+name;
+  var isStay = priceLabel.indexOf('/night')>-1;
+  _bookingData = {name:name, priceLabel:priceLabel, priceNum:priceNum||0, isStay:isStay};
+  document.getElementById('modalTitle').textContent=(isStay?'Check Availability: ':'Book: ')+name;
   showStep1();
   document.getElementById('bookingModal').classList.add('open');
 }
 
 function showStep1(){
-  document.getElementById('modalTitle').textContent='Book: '+_bookingData.name;
+  document.getElementById('modalTitle').textContent=(_bookingData.isStay?'Check Availability: ':'Book: ')+_bookingData.name;
   var today=new Date().toISOString().split('T')[0];
+  var quantityLabel=_bookingData.isStay?'Number of Nights':'Number of People';
+  var quantityOptions=_bookingData.isStay
+    ? '<option value="">Select...</option><option>1 Night</option><option>2 Nights</option><option>3 Nights</option><option>4 Nights</option><option>5 Nights</option><option>6 Nights</option><option>7 Nights</option><option>8 Nights</option><option>9 Nights</option><option>10 Nights</option>'
+    : '<option value="">Select...</option><option>1 Person</option><option>2 People</option><option>3 People</option><option>4 People</option><option>5+ People</option>';
   document.getElementById('modalBody').innerHTML=
     stepsHtml(1)+
     '<div class="modal-price-summary"><span>'+_bookingData.name+'</span><strong>'+_bookingData.priceLabel+'</strong></div>'+
@@ -1895,7 +1985,7 @@ function goStep2(){
         '<tr><td style="color:var(--muted);padding:5px 0;">Email</td><td style="font-weight:500;color:var(--ink);">'+email+'</td></tr>'+
         '<tr><td style="color:var(--muted);padding:5px 0;">Phone</td><td style="font-weight:500;color:var(--ink);">'+_bookingData.phone+'</td></tr>'+
         '<tr><td style="color:var(--muted);padding:5px 0;">Date</td><td style="font-weight:500;color:var(--ink);">'+date+'</td></tr>'+
-        '<tr><td style="color:var(--muted);padding:5px 0;">Party Size</td><td style="font-weight:500;color:var(--ink);">'+people+'</td></tr>'+
+        '<tr><td style="color:var(--muted);padding:5px 0;">'+(_bookingData.isStay?'Stay Length':'Party Size')+'</td><td style="font-weight:500;color:var(--ink);">'+people+'</td></tr>'+
         '<tr><td style="color:var(--muted);padding:5px 0;">Requests</td><td style="font-weight:500;color:var(--ink);">'+_bookingData.notes+'</td></tr>'+
         '<tr style="border-top:1px solid var(--border);"><td style="color:var(--muted);padding:8px 0 0;">Total</td><td style="font-weight:700;color:var(--green-mid);font-size:15px;padding-top:8px;">'+_bookingData.priceLabel+'</td></tr>'+
       '</table>'+
@@ -1916,7 +2006,7 @@ function goStep3(){
     '<div class="confirm-box">'+
       '<svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>'+
       '<h3>You\'re all set!</h3>'+
-      '<p>Your booking for <strong>'+_bookingData.name+'</strong> on <strong>'+_bookingData.date+'</strong> for <strong>'+_bookingData.people+'</strong> has been received.</p>'+
+      '<p>Your '+(_bookingData.isStay?'availability request':'booking')+' for <strong>'+_bookingData.name+'</strong> on <strong>'+_bookingData.date+'</strong> '+(_bookingData.isStay?'for a stay of ':'for ')+'<strong>'+_bookingData.people+'</strong> has been received.</p>'+
       '<p style="margin-top:10px;font-size:13px;color:var(--muted);">A confirmation email with your payment link and full booking details will be sent to <strong>'+_bookingData.email+'</strong> within 24 hours.</p>'+
       '<div style="background:var(--green-bg);border-radius:8px;padding:12px 16px;margin:16px 0;font-size:13px;">'+
         '<strong style="color:var(--green);">Reference:</strong> <span style="color:var(--green-mid);">TAN-'+Math.floor(Math.random()*90000+10000)+'</span>'+
@@ -1924,6 +2014,17 @@ function goStep3(){
       '<button class="btn-submit" style="margin-top:8px;" onclick="closeModal()">Done</button>'+
     '</div>';
   showToast('Booking confirmed! Check your email shortly.');
+}
+
+function openInfoModal(title,message){
+  _bookingData={};
+  document.getElementById('modalTitle').textContent=title;
+  document.getElementById('modalBody').innerHTML=
+    '<div style="padding:8px 0 4px;">'+
+      '<p style="font-size:14px;line-height:1.7;color:var(--ink);">'+message+'</p>'+
+      '<button type="button" class="btn-submit" style="margin-top:18px;" onclick="closeModal()">Close</button>'+
+    '</div>';
+  document.getElementById('bookingModal').classList.add('open');
 }
 
 function closeModal(){
